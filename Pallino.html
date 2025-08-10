@@ -1,119 +1,65 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animazione Scritta Cliccabile</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: sans-serif;
-            /* Nasconde lo scrollbar se l'animazione dovesse uscire dai bordi */
-            overflow: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pallina Rimbalzante</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden; /* Nasconde le barre di scorrimento */
+  }
 
-        #mario {
-            position: absolute;
-            left: 50%;
-            /* Centra l'elemento orizzontalmente */
-            transform: translateX(-50%);
-            font-size: 48px;
-            font-weight: bold;
-            color: #e50914; /* Colore rosso in stile "Mario" */
-            cursor: pointer;
-            white-space: nowrap; /* Evita che il testo vada a capo */
-
-            /* Associazione dell'animazione */
-            animation-name: scroll-down;
-            animation-duration: 8s;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
-        }
-
-        /* Definizione dell'animazione per lo scorrimento */
-        @keyframes scroll-down {
-            0% {
-                /* Parte da sopra lo schermo */
-                top: -50px;
-            }
-            100% {
-                /* Arriva fino in fondo e scompare */
-                top: 100vh;
-            }
-        }
-
-        #messaggio-benvenuto {
-            /* Nascosto di default */
-            display: none;
-
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            /* Centra perfettamente il box del messaggio */
-            transform: translate(-50%, -50%);
-
-            padding: 20px 40px;
-            background-color: white;
-            border: 3px solid black;
-            border-radius: 10px;
-            font-size: 52px;
-            font-weight: bold;
-            color: #2e8b57; /* Verde */
-            z-index: 100; /* Si assicura che sia sopra tutto il resto */
-        }
-
-        /* Media Query per la responsività */
-        @media (max-width: 768px) {
-            #mario {
-                font-size: 32px;
-                /* Su schermi più piccoli, permettiamo al testo di andare a capo */
-                white-space: normal;
-                text-align: center;
-                width: 90%; /* Occupa il 90% della larghezza per un migliore controllo */
-            }
-
-            #messaggio-benvenuto {
-                font-size: 36px;
-                /* Riduciamo il padding su schermi piccoli */
-                padding: 15px 30px;
-                width: 80%;
-            }
-        }
-    </style>
+  #pallina {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: green;
+    border-radius: 50%; /* Rende l'elemento un cerchio */
+  }
+</style>
 </head>
 <body>
 
-    <div id="mario">Clicca ADESSO al volo, veloce,  NON  ASPETTARE!!</div>
+<div id="pallina"></div>
 
-    <div id="messaggio-benvenuto">Benvenuto!</div>
+<script>
+  const pallina = document.getElementById('pallina');
 
-    <script>
-        // Seleziona gli elementi dal DOM (Document Object Model)
-        const scrittaMario = document.getElementById('mario');
-        const messaggio = document.getElementById('messaggio-benvenuto');
+  let posizioneX = 0;
+  let posizioneY = 0;
+  let velocitaX = 10; // Velocità di movimento orizzontale
+  let velocitaY = 10; // Velocità di movimento verticale
 
-        // Durata in millisecondi per la quale il messaggio di benvenuto rimane visibile
-        const tempoVisibilitaMessaggio = 4000; // 4 secondi
+  function animazione() {
+    const larghezzaSchermo = window.innerWidth;
+    const altezzaSchermo = window.innerHeight;
 
-        // Aggiunge un gestore di eventi per il click sulla scritta "Mario"
-        scrittaMario.addEventListener('click', () => {
-            // 1. Ferma l'animazione mettendola in pausa
-            scrittaMario.style.animationPlayState = 'paused';
+    // Aggiorna la posizione della pallina
+    posizioneX += velocitaX;
+    posizioneY += velocitaY;
 
-            // 2. Mostra il messaggio di benvenuto
-            messaggio.style.display = 'block';
+    // Controlla le collisioni con i bordi orizzontali
+    if (posizioneX + pallina.clientWidth > larghezzaSchermo || posizioneX < 0) {
+      velocitaX = -velocitaX;
+    }
 
-            // 3. Imposta un timer per nascondere il messaggio e riprendere l'animazione
-            setTimeout(() => {
-                // a. Nasconde di nuovo il messaggio
-                messaggio.style.display = 'none';
+    // Controlla le collisioni con i bordi verticali
+    if (posizioneY + pallina.clientHeight > altezzaSchermo || posizioneY < 0) {
+      velocitaY = -velocitaY;
+    }
 
-                // b. Fa ripartire l'animazione dal punto in cui si era interrotta
-                scrittaMario.style.animationPlayState = 'running';
-                
-            }, tempoVisibilitaMessaggio);
-        });
-    </script>
+    // Applica le nuove posizioni
+    pallina.style.left = posizioneX + 'px';
+    pallina.style.top = posizioneY + 'px';
+
+    // Richiama la funzione per il prossimo frame
+    requestAnimationFrame(animazione);
+  }
+
+  // Avvia l'animazione
+  animazione();
+</script>
 
 </body>
 </html>
