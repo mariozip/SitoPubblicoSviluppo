@@ -8,7 +8,10 @@
 </head>
 <body>
 
-<div class="navbar">
+<div class="navbar" id="myNavbar">
+    <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+        &#9776; <!-- Hamburger icon -->
+    </a>
     <div class="dropdown">
         <button class="dropbtn">Menu File</button>
         <div class="dropdown-content">
@@ -50,5 +53,16 @@
 </div>
 
 <script src="js/test.js"></script>
+<script>
+    /* Funzione per attivare/disattivare il menu responsive */
+    function toggleMenu() {
+        const navbar = document.getElementById("myNavbar");
+        if (navbar.className === "navbar") {
+            navbar.className += " responsive";
+        } else {
+            navbar.className = "navbar";
+        }
+    }
+</script>
 </body>
 </html>

@@ -53,3 +53,38 @@ body {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+/* Nascondi l'icona hamburger di default sui schermi grandi */
+.navbar .icon {
+    display: none;
+}
+
+/* Media Query per la responsività del menu (per schermi fino a 768px di larghezza) */
+@media screen and (max-width: 768px) {
+    /* Nascondi le voci del menu principali */
+    .navbar .dropdown {
+        display: none;
+    }
+    /* Mostra l'icona hamburger in alto a sinistra */
+    .navbar a.icon {
+        float: left;
+        display: block;
+        color: white;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 20px;
+    }
+
+    /* Stile per il contenitore del menu quando è aperto (classe .responsive) */
+    .navbar.responsive {position: relative;}
+    
+    /* Mostra le voci del menu in verticale e a tutta larghezza */
+    .navbar.responsive .dropdown {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+    .navbar.responsive .dropdown-content {
+        position: relative; /* Il sottomenu segue il flusso del documento */
+    }
+}
