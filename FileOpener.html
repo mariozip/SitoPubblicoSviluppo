@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apri File di Testo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            background-color: #fff;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #file-content-container {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            background-color: #fafafa;
+            padding: 1em;
+            border-radius: 4px;
+            min-height: 200px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        pre {
+            white-space: pre-wrap; /* Permette al testo di andare a capo */
+            word-wrap: break-word; /* Rompe le parole lunghe per evitare lo scroll orizzontale */
+            margin: 0;
+        }
+        .link-ritorno {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .link-ritorno:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Apri e Visualizza File di Testo</h1>
+        
+        <p>Seleziona un file di testo (es. .txt, .md, .html) dal tuo computer per visualizzarne il contenuto qui sotto.</p>
+
+        <input type="file" id="fileInput" accept="text/*,.md,.js,.json,.css,.html">
+
+        <div id="file-content-container">
+            <pre id="fileContent">Il contenuto del file apparirà qui...</pre>
+        </div>
+    </div>
+
+    <a href="index.html" class="link-ritorno">Torna al Menu Principale</a>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const fileContent = document.getElementById('fileContent');
+
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => fileContent.textContent = e.target.result;
+            reader.onerror = () => fileContent.textContent = 'Errore durante la lettura del file: ' + reader.error;
+            reader.readAsText(file);
+        });
+    </script>
+
+</body>
+</html>
