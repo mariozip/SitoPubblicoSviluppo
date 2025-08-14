@@ -12,10 +12,13 @@
             background-color: #f4f4f9;
             color: #333;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
         .container {
             background-color: #fff;
@@ -46,6 +49,11 @@
             border-radius: 4px;
             box-sizing: border-box; /* Assicura che padding e border non aumentino la larghezza totale */
         }
+        select {
+            width: 100%;
+            padding: 0.8em;
+            box-sizing: border-box; /* Assicura che padding e border non aumentino la larghezza totale */
+        }
         textarea {
             resize: vertical; /* Permette all'utente di ridimensionare l'area di testo solo in altezza */
             min-height: 120px;
@@ -64,6 +72,15 @@
         button:hover {
             background-color: #0056b3;
         }
+        .link-ritorno {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .link-ritorno:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -71,11 +88,27 @@
     <div class="container">
         <h1>Contattaci</h1>
         
-        <form>
+        <form id="contactForm">
 
             <div class="form-group">
-                <label for="nomeUtente">Nome e Cognome:</label>
-                <input type="text" id="nomeUtente" name="nome" placeholder="Es. Mario Rossi" required>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" placeholder="Es. Mario" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cognome">Cognome:</label>
+                <input type="text" id="cognome" name="cognome" placeholder="Es. Rossi" required>
+            </div>
+
+            <div class="form-group">
+                <label for="professione">Professione:</label>
+                <select id="professione" name="professione" required>
+                    <option value="" disabled selected>Seleziona una professione</option>
+                    <option value="ingegnere">Ingegnere</option>
+                    <option value="medico">Medico</option>
+                    <option value="avvocato">Avvocato</option>
+                    <option value="pensionato">Pensionato</option>
+                </select>
             </div>
 
             <div class="form-group">
@@ -92,6 +125,39 @@
 
         </form>
     </div>
+
+    <a href="index.html" class="link-ritorno">Torna al Menu Principale</a>
+
+    <script>
+        const form = document.getElementById('contactForm');
+
+        form.addEventListener('submit', function(event) {
+            // 1. Previene il comportamento predefinito del browser (ricaricare la pagina)
+            event.preventDefault();
+
+            // 2. Raccoglie i dati dal modulo
+            const formData = new FormData(form);
+            const nome = formData.get('nome');
+            const cognome = formData.get('cognome');
+            const professione = formData.get('professione');
+            const email = formData.get('email');
+            const messaggio = formData.get('messaggio');
+
+            // 3. Mostra i dati nella console (simulando un invio)
+            console.log('Dati del modulo pronti per essere inviati:');
+            console.log('Nome:', nome);
+            console.log('Cognome:', cognome);
+            console.log('Professione:', professione);
+            console.log('Email:', email);
+            console.log('Messaggio:', messaggio);
+
+            // 4. Mostra un messaggio di conferma all'utente
+            alert(`Grazie, ${nome}! Il tuo messaggio è stato ricevuto (simulazione).\nControlla la console del browser (F12) per vedere i dati.`);
+
+            // 5. Resetta il modulo
+            form.reset();
+        });
+    </script>
 
 </body>
 </html>

@@ -115,5 +115,16 @@
 
     <script src="js/calculator.js"></script>
 
+    <script>
+        // Esempio di ispezione di un elemento HTML
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Selezioniamo l'elemento con la classe 'calculator'
+            const calculatorElement = document.querySelector('.calculator');
+
+            // 2. Usiamo console.dir() per stampare l'oggetto interattivo nella console
+            console.log("Ispezione dell'elemento .calculator (usa console.dir):");
+            console.dir(calculatorElement);
+        });
+    </script>
 </body>
 </html>
