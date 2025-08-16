@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <!-- Aggiunto user-scalable=no per una migliore esperienza su touch -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Lavagna da Disegno</title>
+    <link rel="stylesheet" href="css/lavagna.css">
+    <link rel="icon" type="image/png" href="img/favicon.png">
+</head>
+<body>
+
+    <div class="container"> <!-- Questa diventa la barra dei controlli superiore -->
+        <h1>Lavagna</h1>
+        <div class="controls">
+            <div class="tool-group">
+                <label for="brushColor">Colore:</label>
+                <input type="color" id="brushColor" value="#000000">
+            </div>
+            <div class="tool-group">
+                <label for="brushWidth">Spessore:</label>
+                <input type="range" id="brushWidth" name="brushWidth" min="1" max="50" value="5">
+                <span id="brushWidthValue">5</span>
+            </div>
+            <button id="clearBtn">Pulisci</button>
+        </div>
+        <a href="index.html" class="link-ritorno">Menu Principale</a>
+    </div>
+
+    <canvas id="drawingCanvas"></canvas> <!-- Il canvas ora riempie lo spazio rimanente -->
+
+    <script>
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        const clearBtn = document.getElementById('clearBtn');
+        const brushWidthSlider = document.getElementById('brushWidth');
+        const brushWidthValue = document.getElementById('brushWidthValue');
+        const brushColorPicker = document.getElementById('brushColor');
+
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        function setCanvasSize() {
+            // Imposta la risoluzione del canvas uguale alla sua dimensione CSS
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
+
+            // Reimposta gli stili del tratto (vengono persi al resize)
+            ctx.strokeStyle = brushColorPicker.value;
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+            ctx.lineWidth = brushWidthSlider.value;
+        }
+
+        function getCoordinates(event) {
+            const rect = canvas.getBoundingClientRect();
+            let clientX, clientY;
+
+            if (event.touches && event.touches.length > 0) {
+                // Evento touch
+                clientX = event.touches[0].clientX;
+                clientY = event.touches[0].clientY;
+            } else {
+                // Evento mouse
+                clientX = event.clientX;
+                clientY = event.clientY;
+            }
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        function startDrawing(event) {
+            // Previene comportamenti di default come lo scrolling su touch
+            event.preventDefault();
+            isDrawing = true;
+            const { x, y } = getCoordinates(event);
+            [lastX, lastY] = [x, y];
+        }
+
+        function draw(event) {
+            if (!isDrawing) return;
+            event.preventDefault();
+            const { x, y } = getCoordinates(event);
+
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            [lastX, lastY] = [x, y];
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        function clearCanvas() {
+            // Pulisce l'intero canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Imposta la dimensione iniziale del canvas
+        setCanvasSize();
+
+        // Event listener per il resize della finestra
+        window.addEventListener('resize', setCanvasSize);
+
+        // Event listener per il pulsante "Pulisci"
+        clearBtn.addEventListener('click', clearCanvas);
+
+        // Event listener per lo slider dello spessore
+        brushWidthSlider.addEventListener('input', (e) => {
+            const newWidth = e.target.value;
+            brushWidthValue.textContent = newWidth;
+            ctx.lineWidth = newWidth;
+        });
+
+        // Event listener per il selettore del colore
+        brushColorPicker.addEventListener('input', (e) => {
+            ctx.strokeStyle = e.target.value;
+        });
+
+        // Event listener per il mouse
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing); // Ferma il disegno se il mouse esce dal canvas
+
+        // Event listener per il touch
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchmove', draw);
+        canvas.addEventListener('touchend', stopDrawing);
+    </script>
+
+</body>
+</html>
