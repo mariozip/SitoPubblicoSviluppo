@@ -95,3 +95,26 @@ html, body {
     background-color: #007bff;
     color: white;
 }
+
+/* --- Media Query per la Responsività --- */
+
+/* Per schermi con larghezza fino a 800px (es. tablet e telefoni) */
+@media (max-width: 800px) {
+    .container {
+        flex-direction: column; /* Impila gli elementi principali verticalmente */
+        gap: 15px; /* Aggiunge spazio tra titolo, controlli e link */
+    }
+
+    .controls {
+        flex-direction: column; /* Impila anche i controlli */
+        align-items: stretch;   /* Allunga i controlli per occupare la larghezza */
+        width: 100%;
+        max-width: 400px;       /* Limita la larghezza massima dei controlli */
+        gap: 15px;
+    }
+
+    .link-ritorno {
+        margin-left: 0; /* Rimuove il margine quando è impilato */
+        text-align: center;
+    }
+}
