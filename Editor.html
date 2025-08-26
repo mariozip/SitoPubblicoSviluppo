@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor di Testo Semplice</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #fff;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 900px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            height: 90%; /* Occupa gran parte dell'altezza */
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+            margin-top: 0;
+        }
+        #text-editor {
+            width: 100%;
+            flex-grow: 1; /* Fa in modo che la textarea riempia lo spazio disponibile */
+            padding: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            resize: vertical;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            align-items: center;
+        }
+        .controls label {
+            font-weight: bold;
+        }
+        .controls input[type="text"] {
+            flex-grow: 1;
+            padding: 0.8em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .controls select {
+            padding: 0.8em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+            cursor: pointer;
+        }
+        .controls button {
+            padding: 0.8em 1.5em;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .controls button:hover {
+            background-color: #218838;
+        }
+        .link-ritorno {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .link-ritorno:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Editor di Testo</h1>
+        
+        <textarea id="text-editor" placeholder="Inizia a scrivere qui..."></textarea>
+
+        <div class="controls">
+            <label for="filename">Nome file:</label>
+            <input type="text" id="filename" value="documento" placeholder="Es. mio_file">
+            
+            <label for="filetype">Formato:</label>
+            <select id="filetype">
+                <option value="txt">.txt (Testo)</option>
+                <option value="html">.html (HTML)</option>
+                <option value="md">.md (Markdown)</option>
+                <option value="csv">.csv (CSV)</option>
+            </select>
+
+            <button id="saveBtn">Salva</button>
+        </div>
+    </div>
+
+    <a href="index.html" class="link-ritorno">Torna al Menu Principale</a>
+
+    <script>
+        const textEditor = document.getElementById('text-editor');
+        const saveBtn = document.getElementById('saveBtn');
+        const filenameInput = document.getElementById('filename');
+        const filetypeSelect = document.getElementById('filetype');
+
+        saveBtn.addEventListener('click', () => {
+            const textToSave = textEditor.value;
+            const selectedType = filetypeSelect.value;
+
+            const typeMap = {
+                'txt': { extension: '.txt', mime: 'text/plain' },
+                'html': { extension: '.html', mime: 'text/html' },
+                'md': { extension: '.md', mime: 'text/markdown' },
+                'csv': { extension: '.csv', mime: 'text/csv' }
+            };
+
+            const fileInfo = typeMap[selectedType];
+            let filename = filenameInput.value.trim() || 'documento';
+
+            // Rimuove estensioni note per evitare duplicati e aggiunge quella selezionata
+            const knownExtensions = ['.txt', '.html', '.md', '.csv'];
+            knownExtensions.forEach(ext => {
+                if (filename.toLowerCase().endsWith(ext)) {
+                    filename = filename.slice(0, filename.length - ext.length);
+                }
+            });
+            filename += fileInfo.extension;
+
+            const blob = new Blob([textToSave], { type: fileInfo.mime });
+            const downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = filename;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            URL.revokeObjectURL(downloadLink.href);
+        });
+    </script>
+
+</body>
+</html>
