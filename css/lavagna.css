@@ -113,6 +113,11 @@ html, body {
         gap: 15px;
     }
 
+    .tool-group {
+        flex-wrap: wrap; /* Permette agli elementi di andare a capo */
+        justify-content: center; /* Centra gli elementi quando vanno a capo */
+    }
+
     .link-ritorno {
         margin-left: 0; /* Rimuove il margine quando è impilato */
         text-align: center;

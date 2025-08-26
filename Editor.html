@@ -90,6 +90,25 @@
         .link-ritorno:hover {
             text-decoration: underline;
         }
+
+        /* Media Query per la responsività */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px; /* Riduci padding per schermi piccoli */
+                height: auto; /* Permetti al body di adattarsi in altezza */
+            }
+
+            .container {
+                padding: 1em; /* Riduci padding interno */
+                height: auto; /* Permetti al container di adattarsi */
+                min-height: 85vh; /* Assicura che occupi comunque gran parte dello schermo */
+            }
+
+            .controls {
+                flex-direction: column; /* Impila i controlli verticalmente */
+                align-items: stretch;   /* Allunga i controlli per occupare la larghezza */
+            }
+        }
     </style>
 </head>
 <body>
