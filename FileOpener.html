@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apri File di Testo</title>
+    <title>Apri e Modifica File</title>
     <link rel="icon" type="image/png" href="img/favicon.png">
     <style>
         body {
@@ -15,6 +15,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
         .container {
             background-color: #fff;
@@ -22,34 +24,78 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
         h1 {
             text-align: center;
             color: #444;
+            margin-top: 0;
         }
         input[type="file"] {
             display: block;
-            margin: 20px auto;
+            margin: 0 auto 20px auto;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        #file-content-container {
-            margin-top: 20px;
-            border: 1px solid #ddd;
-            background-color: #fafafa;
+        #text-editor {
+            width: 100%;
+            flex-grow: 1;
             padding: 1em;
+            border: 1px solid #ccc;
             border-radius: 4px;
-            min-height: 200px;
-            max-height: 60vh;
-            overflow-y: auto;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 300px;
         }
-        pre {
-            white-space: pre-wrap; /* Permette al testo di andare a capo */
-            word-wrap: break-word; /* Rompe le parole lunghe per evitare lo scroll orizzontale */
-            margin: 0;
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .controls label {
+            font-weight: bold;
+        }
+        .controls input[type="text"] {
+            flex-grow: 1;
+            padding: 0.8em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            min-width: 150px;
+        }
+        .controls select {
+            padding: 0.8em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+            cursor: pointer;
+        }
+        .controls button {
+            padding: 0.8em 1.5em;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .controls button:hover {
+            background-color: #218838;
+        }
+        .controls button.save-as {
+            background-color: #007bff;
+        }
+        .controls button.save-as:hover {
+            background-color: #0056b3;
         }
         .link-ritorno {
             margin-top: 20px;
@@ -60,19 +106,49 @@
         .link-ritorno:hover {
             text-decoration: underline;
         }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 1em;
+            }
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Apri e Visualizza File di Testo</h1>
+        <h1>Apri, Modifica e Salva File</h1>
         
-        <p>Seleziona un file di testo (es. .txt, .md, .html) dal tuo computer per visualizzarne il contenuto qui sotto.</p>
+        <p>Seleziona un file di testo per caricarlo nell'editor. Potrai modificarlo e salvarlo.</p>
 
         <input type="file" id="fileInput" accept="text/*,.md,.js,.json,.css,.html">
 
-        <div id="file-content-container">
-            <pre id="fileContent">Il contenuto del file apparirà qui...</pre>
+        <textarea id="text-editor" placeholder="Il contenuto del file apparirà qui..."></textarea>
+
+        <div class="controls">
+            <label for="filename">Nome file:</label>
+            <input type="text" id="filename" value="documento" placeholder="Es. mio_file">
+            
+            <label for="filetype">Formato:</label>
+            <select id="filetype">
+                <option value="txt">.txt (Testo)</option>
+                <option value="html">.html (HTML)</option>
+                <option value="md">.md (Markdown)</option>
+                <option value="csv">.csv (CSV)</option>
+                <option value="js">.js (JavaScript)</option>
+                <option value="json">.json (JSON)</option>
+                <option value="css">.css (CSS)</option>
+            </select>
+
+            <button id="saveBtn">Salva</button>
+            <button id="saveAsBtn" class="save-as">Salva con nome</button>
         </div>
     </div>
 
@@ -80,16 +156,83 @@
 
     <script>
         const fileInput = document.getElementById('fileInput');
-        const fileContent = document.getElementById('fileContent');
+        const textEditor = document.getElementById('text-editor');
+        const saveBtn = document.getElementById('saveBtn');
+        const saveAsBtn = document.getElementById('saveAsBtn');
+        const filenameInput = document.getElementById('filename');
+        const filetypeSelect = document.getElementById('filetype');
+
+        const typeMap = {
+            'txt': { extension: '.txt', mime: 'text/plain' },
+            'html': { extension: '.html', mime: 'text/html' },
+            'md': { extension: '.md', mime: 'text/markdown' },
+            'csv': { extension: '.csv', mime: 'text/csv' },
+            'js': { extension: '.js', mime: 'application/javascript' },
+            'json': { extension: '.json', mime: 'application/json' },
+            'css': { extension: '.css', mime: 'text/css' }
+        };
+
+        function saveFile(baseFilename) {
+            const textToSave = textEditor.value;
+            const selectedType = filetypeSelect.value;
+            const fileInfo = typeMap[selectedType] || typeMap['txt'];
+            let filename = baseFilename.trim() || 'documento';
+
+            const knownExtensions = Object.values(typeMap).map(info => info.extension);
+            knownExtensions.forEach(ext => {
+                if (filename.toLowerCase().endsWith(ext)) {
+                    filename = filename.slice(0, filename.length - ext.length);
+                }
+            });
+            filename += fileInfo.extension;
+
+            const blob = new Blob([textToSave], { type: fileInfo.mime });
+            const downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = filename;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            URL.revokeObjectURL(downloadLink.href);
+        }
 
         fileInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (!file) return;
 
             const reader = new FileReader();
-            reader.onload = (e) => fileContent.textContent = e.target.result;
-            reader.onerror = () => fileContent.textContent = 'Errore durante la lettura del file: ' + reader.error;
+            reader.onload = (e) => {
+                textEditor.value = e.target.result;
+
+                const fileName = file.name;
+                const lastDot = fileName.lastIndexOf('.');
+                const nameWithoutExt = lastDot > 0 ? fileName.slice(0, lastDot) : fileName;
+                const extension = lastDot > 0 ? fileName.slice(lastDot + 1).toLowerCase() : 'txt';
+
+                filenameInput.value = nameWithoutExt;
+
+                if (filetypeSelect.querySelector(`option[value="${extension}"]`)) {
+                    filetypeSelect.value = extension;
+                } else {
+                    filetypeSelect.value = 'txt';
+                }
+            };
+            reader.onerror = () => textEditor.value = 'Errore durante la lettura del file: ' + reader.error;
             reader.readAsText(file);
+        });
+
+        saveBtn.addEventListener('click', () => {
+            saveFile(filenameInput.value);
+        });
+
+        saveAsBtn.addEventListener('click', () => {
+            const currentName = filenameInput.value.trim() || 'documento';
+            const newName = prompt("Inserisci il nuovo nome del file (senza estensione):", currentName);
+            
+            if (newName !== null && newName.trim() !== '') {
+                filenameInput.value = newName.trim();
+                saveFile(newName);
+            }
         });
     </script>
 
