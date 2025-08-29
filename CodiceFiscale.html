@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolo Codice Fiscale</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="stylesheet" href="css/CodiceFiscale.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Calcolo Codice Fiscale</h1>
+        <p>Inserisci i dati per generare il codice fiscale. Questo strumento è a scopo didattico e potrebbe non gestire tutti i casi speciali (es. omocodia).</p>
+        
+        <form id="cfForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" placeholder="Es. Mario" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cognome">Cognome:</label>
+                    <input type="text" id="cognome" name="cognome" placeholder="Es. Rossi" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dataNascita">Data di Nascita:</label>
+                    <input type="date" id="dataNascita" name="dataNascita" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Sesso:</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="sesso" value="M" checked> M</label>
+                        <label><input type="radio" name="sesso" value="F"> F</label>
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="comuneNascita">Comune di Nascita:</label>
+                    <select id="comuneNascita" name="comuneNascita" required>
+                        <option value="" disabled selected>Seleziona un comune</option>
+                        <!-- Options will be populated by JS -->
+                    </select>
+                    <small>Elenco limitato. Per altri comuni, il codice catastale andrebbe cercato online.</small>
+                </div>
+            </div>
+            
+            <button type="submit">Calcola Codice Fiscale</button>
+        </form>
+
+        <div id="risultato" class="risultato-box">
+            <h2>Il tuo Codice Fiscale:</h2>
+            <p id="codiceFiscaleOutput">-</p>
+        </div>
+    </div>
+
+    <a href="index.html" class="link-ritorno">Torna al Menu Principale</a>
+
+    <script src="js/codiceFiscale.js"></script>
+</body>
+</html>
