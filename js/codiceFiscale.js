@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Mappa di esempio per i comuni (codice catastale)
     const comuni = {
+        'A345': "L'AQUILA",
+        'B157': 'BRESCIA',
         'H501': 'ROMA',
         'F205': 'MILANO',
         'F839': 'NAPOLI',
