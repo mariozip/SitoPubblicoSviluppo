@@ -12,27 +12,121 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Mappa di esempio per i comuni (codice catastale)
     const comuni = {
-        'A345': "L'AQUILA",
-        'B157': 'BRESCIA',
-        'H501': 'ROMA',
-        'F205': 'MILANO',
-        'F839': 'NAPOLI',
-        'L219': 'TORINO',
-        'G273': 'PALERMO',
+        'A089': 'AGRIGENTO',
+        'A182': 'ALESSANDRIA',
+        'A271': 'ANCONA',
+        'A285': 'ANDRIA',
+        'A326': 'AOSTA',
+        'A390': 'AREZZO',
+        'A462': 'ASCOLI PICENO',
+        'A479': 'ASTI',
+        'A509': 'AVELLINO',
+        'A662': 'BARI',
+        'A669': 'BARLETTA',
+        'A757': 'BELLUNO',
+        'A783': 'BENEVENTO',
+        'A859': 'BIELLA',
         'A944': 'BOLOGNA',
-        'D612': 'FIRENZE',
-        'A794': 'BARI',
+        'A952': 'BOLZANO',
+        'B157': 'BRESCIA',
+        'B180': 'BRINDISI',
+        'B354': 'CAGLIARI',
+        'B429': 'CALTANISSETTA',
+        'B519': 'CAMPOBASSO',
         'C351': 'CATANIA',
-        'M126': 'VENEZIA'
+        'C352': 'CASERTA',
+        'C573': 'CESENA',
+        'C632': 'CHIETI',
+        'C933': 'COMO',
+        'D086': 'COSENZA',
+        'D122': 'CROTONE',
+        'D150': 'CREMONA',
+        'D205': 'CUNEO',
+        'D403': 'ENNA',
+        'D542': 'FERMO',
+        'D548': 'FERRARA',
+        'D612': 'FIRENZE',
+        'D643': 'FOGGIA',
+        'D704': 'FORLÌ',
+        'D810': 'FROSINONE',
+        'D969': 'GENOVA',
+        'E098': 'GORIZIA',
+        'E202': 'GROSSETO',
+        'E290': 'IMPERIA',
+        'E335': 'ISERNIA',
+        'E463': 'LA SPEZIA',
+        'E472': 'LATINA',
+        'E506': 'LECCE',
+        'E507': 'LECCO',
+        'E625': 'LIVORNO',
+        'E648': 'LODI',
+        'E715': 'LUCCA',
+        'E783': 'MACERATA',
+        'E897': 'MANTOVA',
+        'F023': 'MASSA',
+        'F052': 'MATERA',
+        'F158': 'MESSINA',
+        'F205': 'MILANO',
+        'F257': 'MODENA',
+        'F704': 'MONZA',
+        'F839': 'NAPOLI',
+        'F952': 'NOVARA',
+        'F979': 'NUORO',
+        'G113': 'ORISTANO',
+        'G224': 'PADOVA',
+        'G273': 'PALERMO',
+        'G337': 'PARMA',
+        'G388': 'PAVIA',
+        'G478': 'PERUGIA',
+        'G479': 'PESARO',
+        'G482': 'PESCARA',
+        'G535': 'PIACENZA',
+        'G702': 'PISA',
+        'G713': 'PISTOIA',
+        'G888': 'PORDENONE',
+        'G942': 'POTENZA',
+        'G999': 'PRATO',
+        'H163': 'RAGUSA',
+        'H199': 'RAVENNA',
+        'H224': 'REGGIO CALABRIA',
+        'H223': 'REGGIO EMILIA',
+        'H282': 'RIETI',
+        'H294': 'RIMINI',
+        'H501': 'ROMA',
+        'H620': 'ROVIGO',
+        'H703': 'SALERNO',
+        'I452': 'SASSARI',
+        'I480': 'SAVONA',
+        'I726': 'SIENA',
+        'I754': 'SIRACUSA',
+        'L049': 'TARANTO',
+        'L103': 'TERAMO',
+        'L117': 'TERNI',
+        'L219': 'TORINO',
+        'L327': 'TRAPANI',
+        'L328': 'TRANI',
+        'L378': 'TRENTO',
+        'L407': 'TREVISO',
+        'L424': 'TRIESTE',
+        'L483': 'UDINE',
+        'L500': 'URBINO',
+        'L736': 'VENEZIA',
+        'L746': 'VERBANIA',
+        'L750': 'VERCELLI',
+        'L840': 'VERONA',
+        'L795': 'VIBO VALENTIA',
+        'M082': 'VITERBO'
     };
     
-    // Popola la select dei comuni
-    for (const code in comuni) {
-        const option = document.createElement('option');
-        option.value = code;
-        option.textContent = `${comuni[code]} (${code})`;
-        comuneSelect.appendChild(option);
-    }
+    // Popola la select dei comuni, ordinandoli alfabeticamente
+    Object.entries(comuni)
+        .sort(([, a], [, b]) => a.localeCompare(b))
+        .forEach(([code, name]) => {
+            const option = document.createElement('option');
+            option.value = code;
+            option.textContent = `${name} (${code})`;
+            comuneSelect.appendChild(option);
+        });
 
     // Mappe per il carattere di controllo
     const charControlPari = {
