@@ -124,7 +124,7 @@
             if (fromUnit === toUnit) {
                 result = fromValue;
             } else {
-                result = conversionFormulas[fromUnit]toUnit;
+                result = conversionFormulas[fromUnit][toUnit](fromValue);
             }
 
             toValueInput.value = parseFloat(result.toFixed(6));
