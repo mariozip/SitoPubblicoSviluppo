@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertitore di Unità di Misura</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="stylesheet" href="css/UnitConverter.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Convertitore di Unità di Misura</h1>
+        
+        <div class="converter-group">
+            <label for="conversionType">Tipo di Conversione:</label>
+            <select id="conversionType">
+                <option value="length">Lunghezza</option>
+                <option value="weight">Peso</option>
+                <option value="temperature">Temperatura</option>
+            </select>
+        </div>
+
+        <div id="converter-ui">
+            <!-- L'interfaccia del convertitore viene generata qui da JavaScript -->
+        </div>
+
+    </div>
+
+    <a href="index.html" class="link-ritorno">Torna al Menu Principale</a>
+
+    <script>
+        const conversionTypeSelect = document.getElementById('conversionType');
+        const converterUi = document.getElementById('converter-ui');
+
+        const units = {
+            length: {
+                meters: 'Metri',
+                kilometers: 'Chilometri',
+                miles: 'Miglia',
+                feet: 'Piedi'
+            },
+            weight: {
+                grams: 'Grammi',
+                kilograms: 'Chilogrammi',
+                pounds: 'Libbre',
+                ounces: 'Once'
+            },
+            temperature: {
+                celsius: 'Celsius',
+                fahrenheit: 'Fahrenheit',
+                kelvin: 'Kelvin'
+            }
+        };
+
+        const conversionFormulas = {
+            // Lunghezza
+            meters: { kilometers: v => v / 1000, miles: v => v / 1609.34, feet: v => v * 3.28084 },
+            kilometers: { meters: v => v * 1000, miles: v => v / 1.60934, feet: v => v * 3280.84 },
+            miles: { meters: v => v * 1609.34, kilometers: v => v * 1.60934, feet: v => v * 5280 },
+            feet: { meters: v => v / 3.28084, kilometers: v => v / 3280.84, miles: v => v / 5280 },
+            // Peso
+            grams: { kilograms: v => v / 1000, pounds: v => v / 453.592, ounces: v => v / 28.3495 },
+            kilograms: { grams: v => v * 1000, pounds: v => v * 2.20462, ounces: v => v * 35.274 },
+            pounds: { grams: v => v * 453.592, kilograms: v => v / 2.20462, ounces: v => v * 16 },
+            ounces: { grams: v => v * 28.3495, kilograms: v => v / 35.274, pounds: v => v / 16 },
+            // Temperatura
+            celsius: { fahrenheit: v => (v * 9/5) + 32, kelvin: v => v + 273.15 },
+            fahrenheit: { celsius: v => (v - 32) * 5/9, kelvin: v => (v - 32) * 5/9 + 273.15 },
+            kelvin: { celsius: v => v - 273.15, fahrenheit: v => (v - 273.15) * 9/5 + 32 }
+        };
+
+        function createUnitOptions(unitSet) {
+            return Object.entries(unitSet)
+                .map(([key, name]) => `<option value="${key}">${name}</option>`)
+                .join('');
+        }
+
+        function renderConverter(type) {
+            const unitOptions = createUnitOptions(units[type]);
+            converterUi.innerHTML = `
+                <div class="conversion-row">
+                    <div class="input-group">
+                        <label for="fromValue">Valore</label>
+                        <input type="number" id="fromValue" value="1">
+                    </div>
+                    <div class="input-group">
+                        <label for="fromUnit">Da</label>
+                        <select id="fromUnit">${unitOptions}</select>
+                    </div>
+                    <span class="equals-sign">=</span>
+                    <div class="input-group">
+                        <label for="toValue">Risultato</label>
+                        <input type="number" id="toValue" readonly>
+                    </div>
+                    <div class="input-group">
+                        <label for="toUnit">A</label>
+                        <select id="toUnit">${unitOptions}</select>
+                    </div>
+                </div>
+            `;
+            
+            const toUnitSelect = document.getElementById('toUnit');
+            if (toUnitSelect.options.length > 1) {
+                toUnitSelect.selectedIndex = 1;
+            }
+
+            attachConversionListeners();
+            convert();
+        }
+
+        function convert() {
+            const fromValue = parseFloat(document.getElementById('fromValue').value);
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+            const toValueInput = document.getElementById('toValue');
+
+            if (isNaN(fromValue)) {
+                toValueInput.value = '';
+                return;
+            }
+
+            let result;
+            if (fromUnit === toUnit) {
+                result = fromValue;
+            } else {
+                result = conversionFormulas[fromUnit]toUnit;
+            }
+
+            toValueInput.value = parseFloat(result.toFixed(6));
+        }
+
+        function attachConversionListeners() {
+            document.getElementById('fromValue').addEventListener('input', convert);
+            document.getElementById('fromUnit').addEventListener('change', convert);
+            document.getElementById('toUnit').addEventListener('change', convert);
+        }
+
+        conversionTypeSelect.addEventListener('change', (e) => renderConverter(e.target.value));
+
+        renderConverter(conversionTypeSelect.value);
+    </script>
+
+</body>
+</html>
