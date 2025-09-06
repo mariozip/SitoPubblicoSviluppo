@@ -19,9 +19,21 @@
   let velocitaX = 10; // Velocità di movimento orizzontale
   let velocitaY = 10; // Velocità di movimento verticale
 
+  // Funzione per generare un colore esadecimale casuale
+  function getRandomColor() {
+    const lettere = '0123456789ABCDEF';
+    let colore = '#';
+    for (let i = 0; i < 6; i++) {
+      colore += lettere[Math.floor(Math.random() * 16)];
+    }
+    return colore;
+  }
+
   function animazione() {
     const larghezzaSchermo = window.innerWidth;
     const altezzaSchermo = window.innerHeight;
+
+    let rimbalzo = false;
 
     // Aggiorna la posizione della pallina
     posizioneX += velocitaX;
@@ -30,11 +42,18 @@
     // Controlla le collisioni con i bordi orizzontali
     if (posizioneX + pallina.clientWidth > larghezzaSchermo || posizioneX < 0) {
       velocitaX = -velocitaX;
+      rimbalzo = true;
     }
 
     // Controlla le collisioni con i bordi verticali
     if (posizioneY + pallina.clientHeight > altezzaSchermo || posizioneY < 0) {
       velocitaY = -velocitaY;
+      rimbalzo = true;
+    }
+
+    // Se c'è stato un rimbalzo, cambia il colore della pallina
+    if (rimbalzo) {
+      pallina.style.backgroundColor = getRandomColor();
     }
 
     // Applica le nuove posizioni
