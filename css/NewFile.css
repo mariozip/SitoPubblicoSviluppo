@@ -73,15 +73,6 @@ h1 {
 .controls button:hover {
     background-color: #218838;
 }
-.link-ritorno {
-    margin-top: 20px;
-    font-size: 1.2em;
-    color: #007bff;
-    text-decoration: none;
-}
-.link-ritorno:hover {
-    text-decoration: underline;
-}
 
 /* Media Query per la responsività */
 @media (max-width: 768px) {

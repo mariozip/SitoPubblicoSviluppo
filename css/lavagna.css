@@ -79,23 +79,6 @@ html, body {
     background-color: white; /* Sfondo bianco per la lavagna */
 }
 
-.link-ritorno {
-    /* Stile per il link di ritorno nella barra dei controlli */
-    font-size: 1em;
-    color: #007bff;
-    text-decoration: none;
-    padding: 8px 12px;
-    border: 1px solid #007bff;
-    border-radius: 5px;
-    transition: all 0.2s;
-    margin-left: 20px; /* Spazio tra i controlli e il link */
-}
-
-.link-ritorno:hover {
-    background-color: #007bff;
-    color: white;
-}
-
 /* --- Media Query per la Responsività --- */
 
 /* Per schermi con larghezza fino a 800px (es. tablet e telefoni) */
@@ -116,10 +99,5 @@ html, body {
     .tool-group {
         flex-wrap: wrap; /* Permette agli elementi di andare a capo */
         justify-content: center; /* Centra gli elementi quando vanno a capo */
-    }
-
-    .link-ritorno {
-        margin-left: 0; /* Rimuove il margine quando è impilato */
-        text-align: center;
     }
 }

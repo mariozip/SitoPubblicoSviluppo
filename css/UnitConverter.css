@@ -66,17 +66,6 @@ select {
     padding-bottom: 0.5em;
 }
 
-.link-ritorno {
-    margin-top: 20px;
-    font-size: 1.2em;
-    color: #007bff;
-    text-decoration: none;
-}
-
-.link-ritorno:hover {
-    text-decoration: underline;
-}
-
 @media (max-width: 650px) {
     .conversion-row {
         flex-direction: column;

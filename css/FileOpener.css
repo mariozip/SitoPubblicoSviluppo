@@ -89,15 +89,6 @@ input[type="file"] {
 .controls button.save-as:hover {
     background-color: #0056b3;
 }
-.link-ritorno {
-    margin-top: 20px;
-    font-size: 1.2em;
-    color: #007bff;
-    text-decoration: none;
-}
-.link-ritorno:hover {
-    text-decoration: underline;
-}
 
 @media (max-width: 768px) {
     body {

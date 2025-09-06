@@ -111,17 +111,6 @@ button:hover {
     word-break: break-all;
 }
 
-.link-ritorno {
-    margin-top: 20px;
-    font-size: 1.2em;
-    color: #007bff;
-    text-decoration: none;
-}
-
-.link-ritorno:hover {
-    text-decoration: underline;
-}
-
 @media (max-width: 600px) {
     .form-grid {
         grid-template-columns: 1fr;

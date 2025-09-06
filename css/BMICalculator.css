@@ -93,14 +93,3 @@ button:hover {
 .normal { background-color: #e9fde9; border-color: #b3e6b3; }
 .overweight { background-color: #fff8e1; border-color: #ffecb3; }
 .obese { background-color: #ffebee; border-color: #ffcdd2; }
-
-.link-ritorno {
-    margin-top: 20px;
-    font-size: 1.2em;
-    color: #007bff;
-    text-decoration: none;
-}
-
-.link-ritorno:hover {
-    text-decoration: underline;
-}
