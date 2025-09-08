@@ -49,22 +49,49 @@ document.addEventListener('DOMContentLoaded', () => {
         copyBtn.textContent = 'Copia'; // Resetta il testo del pulsante copia
     }
 
+    // Funzione di fallback per la copia, compatibile con contesti ristretti come gli iframe
+    function legacyCopy(text) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        // Rendi l'elemento invisibile e posizionalo fuori dallo schermo
+        textArea.style.position = "absolute";
+        textArea.style.left = "-9999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            copyBtn.textContent = 'Copiato!';
+            setTimeout(() => { copyBtn.textContent = 'Copia'; }, 2000);
+        } catch (err) {
+            console.error('Fallback per la copia fallito:', err);
+            copyBtn.textContent = 'Errore';
+        }
+        document.body.removeChild(textArea);
+    }
+
     // Funzione per copiare la password
     function copyPassword() {
         const password = passwordOutput.value;
         if (!password || password.startsWith('Seleziona')) {
             return; // Non copiare se non c'è una password valida
         }
-
-        navigator.clipboard.writeText(password).then(() => {
-            copyBtn.textContent = 'Copiato!';
-            setTimeout(() => {
-                copyBtn.textContent = 'Copia';
-            }, 2000);
-        }).catch(err => {
-            console.error('Errore durante la copia:', err);
-            copyBtn.textContent = 'Errore';
-        });
+        
+        // Prova a usare la moderna API Clipboard, che è asincrona e preferibile.
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(password).then(() => {
+                // Successo: mostra il messaggio di conferma
+                copyBtn.textContent = 'Copiato!';
+                setTimeout(() => { copyBtn.textContent = 'Copia'; }, 2000);
+            }).catch(err => {
+                // Fallimento (es. permessi negati): prova con il metodo legacy
+                console.warn('Copia con navigator.clipboard fallita, tentativo con metodo legacy:', err);
+                legacyCopy(password);
+            });
+        } else {
+            // Fallback per contesti non sicuri (http), browser vecchi o iframe restrittivi.
+            legacyCopy(password);
+        }
     }
 
     // Event listener
