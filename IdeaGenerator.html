@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generatore di Idee</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="stylesheet" href="css/IdeaGenerator.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Generatore di Idee</h1>
+        <p>Non sai da dove iniziare? Seleziona una categoria e genera un'idea!</p>
+        
+        <div class="form-group">
+            <label for="ideaType">Scegli il tipo di idea:</label>
+            <select id="ideaType">
+                <option value="blog">Articolo di Blog</option>
+                <option value="project">Nome di Progetto</option>
+                <option value="discussion">Argomento di Discussione</option>
+            </select>
+        </div>
+
+        <button id="generateBtn">Genera Idea</button>
+
+        <div class="result-container">
+            <span id="ideaOutput">La tua idea apparirà qui...</span>
+        </div>
+    </div>
+
+    <script src="js/IdeaGenerator.js"></script>
+</body>
+</html>
