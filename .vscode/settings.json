@@ -1,4 +1,4 @@
 {
      // Imposta la porta predefinita per l'estensione Live Server.
-    "liveServer.settings.port": 8081
+    "liveServer.settings.port": 8080
 }
