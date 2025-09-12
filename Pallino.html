@@ -6,13 +6,36 @@
 <title>Pallina Rimbalzante</title>
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="stylesheet" href="css/pallino.css">
+<style>
+  /* Sovrascrive le dimensioni del pallino per raddoppiarle */
+  #pallina {
+    width: 100px;
+    height: 100px;
+  }
+
+  /* Stile per il messaggio di successo */
+  #messaggio {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5em;
+    font-weight: bold;
+    color: green;
+    z-index: 100;
+    display: none; /* Nascosto di default */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  }
+</style>
 </head>
 <body>
 
 <div id="pallina"></div>
+<div id="messaggio">Bravo!</div>
 
 <script>
   const pallina = document.getElementById('pallina');
+  const messaggio = document.getElementById('messaggio');
 
   let posizioneX = 0;
   let posizioneY = 0;
@@ -63,6 +86,17 @@
     // Richiama la funzione per il prossimo frame
     requestAnimationFrame(animazione);
   }
+
+  // Aggiunge l'evento di click sul pallino
+  pallina.addEventListener('click', () => {
+    // Mostra il messaggio
+    messaggio.style.display = 'block';
+
+    // Imposta un timer per nascondere il messaggio dopo 10 secondi
+    setTimeout(() => {
+      messaggio.style.display = 'none';
+    }, 10000); // 10000 millisecondi = 10 secondi
+  });
 
   // Avvia l'animazione
   animazione();
