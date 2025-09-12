@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertitore di Valuta</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="stylesheet" href="css/CurrencyConverter.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Convertitore di Valuta</h1>
+        <p>Inserisci un importo e seleziona le valute. I tassi di cambio vengono aggiornati automaticamente da un'API pubblica.</p>
+        
+        <div class="converter-row">
+            <div class="input-group">
+                <label for="amount">Importo</label>
+                <input type="number" id="amount" value="100" step="any">
+            </div>
+            <div class="input-group">
+                <label for="fromCurrency">Da</label>
+                <select id="fromCurrency"></select>
+            </div>
+            <span class="equals-sign">=</span>
+            <div class="input-group">
+                <label for="result">Risultato</label>
+                <input type="text" id="result" readonly>
+            </div>
+            <div class="input-group">
+                <label for="toCurrency">A</label>
+                <select id="toCurrency"></select>
+            </div>
+        </div>
+        <div id="rate-info"></div>
+        <div id="update-status"></div>
+    </div>
+
+    <script src="js/CurrencyConverter.js"></script>
+</body>
+</html>
