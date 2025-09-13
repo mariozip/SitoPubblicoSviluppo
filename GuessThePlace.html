@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indovina il Luogo</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="stylesheet" href="css/GuessThePlace.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Indovina il Luogo!</h1>
+        <p>Riconosci il luogo mostrato nell'immagine e seleziona la risposta corretta.</p>
+
+        <div id="game-area">
+            <div id="score-container">
+                Punteggio: <span id="score">0</span>
+            </div>
+
+            <img id="place-image" src="" alt="Indovina questo luogo" onerror="this.onerror=null;this.src='https://via.placeholder.com/800x450.png?text=Immagine+non+trovata';">
+
+            <div id="options-container" class="options-grid">
+                <!-- Le opzioni verranno inserite qui da JavaScript -->
+            </div>
+
+            <div id="feedback-container">
+                <p id="feedback-text"></p>
+                <button id="next-btn" style="display: none;">Prossima Domanda</button>
+            </div>
+        </div>
+
+        <div id="end-game-container" style="display: none;">
+            <h2>Partita Terminata!</h2>
+            <p>Il tuo punteggio finale è: <span id="final-score"></span></p>
+            <button id="restart-btn">Gioca Ancora</button>
+        </div>
+    </div>
+
+    <script src="js/GuessThePlace.js"></script>
+</body>
+</html>

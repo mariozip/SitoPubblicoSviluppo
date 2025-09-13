@@ -1,0 +1,140 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* Azzurro chiaro */
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #fff;
+    padding: 2em;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+}
+
+h1 {
+    color: #0056b3;
+    margin-top: 0;
+}
+
+#score-container {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 1em;
+    text-align: right;
+}
+
+#place-image {
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 3px solid #ddd;
+    margin-bottom: 1.5em;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 1.5em;
+}
+
+.option-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.option-btn:hover:not(:disabled) {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.option-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.option-btn.correct {
+    background-color: #28a745; /* Verde */
+}
+
+.option-btn.incorrect {
+    background-color: #dc3545; /* Rosso */
+}
+
+#feedback-container {
+    min-height: 80px; /* Spazio per feedback e pulsante next */
+}
+
+#feedback-text {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#next-btn, #restart-btn {
+    padding: 12px 25px;
+    font-size: 1.1em;
+    background-color: #ffc107; /* Giallo */
+    color: black;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+#next-btn:hover, #restart-btn:hover {
+    background-color: #e0a800;
+}
+
+#end-game-container h2 {
+    color: #0056b3;
+}
+
+#end-game-container p {
+    font-size: 1.5em;
+}
+
+.link-ritorno {
+    display: inline-block;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link-ritorno:hover {
+    text-decoration: underline;
+}
+
+/* Media Query per la responsività */
+@media (max-width: 600px) {
+    .options-grid {
+        grid-template-columns: 1fr; /* Una colonna su schermi piccoli */
+    }
+
+    .container {
+        padding: 1em;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+}
