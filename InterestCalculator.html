@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatore di Interessi</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="stylesheet" href="css/InterestCalculator.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Calcolatore di Interessi</h1>
+        <p>Calcola il montante finale e gli interessi guadagnati con interesse semplice o composto.</p>
+        
+        <form id="interestForm">
+            <div class="form-group">
+                <label for="principal">Importo Iniziale (€):</label>
+                <input type="number" id="principal" value="1000" min="0" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="rate">Tasso di Interesse Annuale (%):</label>
+                <input type="number" id="rate" value="5" min="0" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Periodo (anni):</label>
+                <input type="number" id="time" value="10" min="0" step="1" required>
+            </div>
+
+            <div class="form-group">
+                <label>Tipo di Interesse:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="interestType" value="simple" checked> Semplice</label>
+                    <label><input type="radio" name="interestType" value="compound"> Composto</label>
+                </div>
+            </div>
+
+            <div class="form-group" id="compoundingGroup">
+                <label for="compounding">Frequenza di Capitalizzazione:</label>
+                <select id="compounding">
+                    <option value="1">Annuale</option>
+                    <option value="2">Semestrale</option>
+                    <option value="4">Trimestrale</option>
+                    <option value="12">Mensile</option>
+                </select>
+            </div>
+            
+            <button type="submit">Calcola</button>
+        </form>
+
+        <div id="result-box" class="result-box" style="display: none;">
+            <h2>Risultato</h2>
+            <p><strong>Montante Finale:</strong> <span id="finalAmount"></span></p>
+            <p><strong>Interessi Totali Guadagnati:</strong> <span id="totalInterest"></span></p>
+        </div>
+    </div>
+
+    <script src="js/InterestCalculator.js"></script>
+</body>
+</html>
