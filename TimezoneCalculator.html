@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatore Fuso Orario</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="stylesheet" href="css/TimezoneCalculator.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Calcolatore Fuso Orario</h1>
+        <p>Seleziona i fusi orari per vedere l'ora corrente e convertire un orario specifico.</p>
+
+        <div class="clocks-grid">
+            <div class="clock-panel">
+                <h2>Da:</h2>
+                <select id="fromTimezone"></select>
+                <div class="time-display" id="fromTime">--:--:--</div>
+            </div>
+            <div class="clock-panel">
+                <h2>A:</h2>
+                <select id="toTimezone"></select>
+                <div class="time-display" id="toTime">--:--:--</div>
+            </div>
+        </div>
+
+        <div class="converter-section">
+            <h2>Converti Orario</h2>
+            <div class="form-group">
+                <label for="timeInput">Inserisci un orario (nel fuso orario "Da"):</label>
+                <input type="time" id="timeInput">
+            </div>
+            <div id="result" class="result-box" style="display: none;">
+                <p>L'orario convertito è:</p>
+                <span id="convertedTime"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/TimezoneCalculator.js"></script>
+</body>
+</html>
