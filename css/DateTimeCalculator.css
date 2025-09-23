@@ -1,0 +1,130 @@
+/* Stili base per la pagina */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Allinea in alto per vedere l'inizio della pagina */
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #fff;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 700px;
+}
+
+h1, h2 {
+    color: #444;
+    text-align: center;
+    margin-top: 0;
+}
+
+h2 {
+    margin-top: 1.5em;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5em;
+}
+
+.calculator-section {
+    margin-bottom: 2em;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.5em;
+    font-weight: 500;
+    color: #555;
+}
+
+.form-group input {
+    padding: 0.8em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+button {
+    width: 100%;
+    padding: 1em;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.button-group {
+    display: flex;
+    gap: 1em;
+}
+
+#addDurationBtn {
+    background-color: #28a745; /* Verde */
+}
+#addDurationBtn:hover {
+    background-color: #218838;
+}
+
+#subtractDurationBtn {
+    background-color: #dc3545; /* Rosso */
+}
+#subtractDurationBtn:hover {
+    background-color: #c82333;
+}
+
+.result-box {
+    margin-top: 1.5em;
+    padding: 1.5em;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.result-box p {
+    margin: 0.5em 0;
+}
+
+.result-box strong {
+    font-size: 1.4em;
+    color: #0056b3;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 1.5em;
+    }
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .button-group {
+        flex-direction: column;
+    }
+}

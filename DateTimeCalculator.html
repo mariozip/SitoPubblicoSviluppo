@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatore di Tempi e Date</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="stylesheet" href="css/DateTimeCalculator.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Calcolatore di Tempi e Date</h1>
+
+        <!-- Sezione per calcolare la differenza tra due date -->
+        <div class="calculator-section">
+            <h2>Differenza tra Date</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="startDate">Data Iniziale:</label>
+                    <input type="date" id="startDate">
+                </div>
+                <div class="form-group">
+                    <label for="endDate">Data Finale:</label>
+                    <input type="date" id="endDate">
+                </div>
+            </div>
+            <button id="calculateDiffBtn">Calcola Differenza</button>
+            <div id="diffResult" class="result-box" style="display: none;"></div>
+        </div>
+
+        <!-- Sezione per aggiungere o sottrarre tempo a una data -->
+        <div class="calculator-section">
+            <h2>Aggiungi o Sottrai Durata a una Data</h2>
+            <div class="form-group">
+                <label for="baseDate">Data di Partenza:</label>
+                <input type="date" id="baseDate">
+            </div>
+            <div class="form-grid duration-grid">
+                <div class="form-group">
+                    <label for="years">Anni:</label>
+                    <input type="number" id="years" value="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="months">Mesi:</label>
+                    <input type="number" id="months" value="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="weeks">Settimane:</label>
+                    <input type="number" id="weeks" value="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="days">Giorni:</label>
+                    <input type="number" id="days" value="0" min="0">
+                </div>
+            </div>
+            <div class="button-group">
+                <button id="addDurationBtn">Aggiungi Durata</button>
+                <button id="subtractDurationBtn">Sottrai Durata</button>
+            </div>
+            <div id="dateCalcResult" class="result-box" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script src="js/DateTimeCalculator.js"></script>
+</body>
+</html>
