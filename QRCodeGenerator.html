@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generatore di QR Code</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="stylesheet" href="css/QRCodeGenerator.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Generatore di QR Code</h1>
+        <p>Inserisci un testo o un URL per generare il tuo QR code personalizzato.</p>
+        
+        <div class="input-section">
+            <input type="text" id="text-input" placeholder="Es. https://www.example.com">
+            <button id="generate-btn">Genera QR Code</button>
+        </div>
+
+        <div id="qrcode-container">
+            <div id="qrcode"></div>
+            <p id="qrcode-placeholder">Il tuo QR code apparirà qui.</p>
+        </div>
+        
+        <div class="download-section">
+            <button id="download-btn" style="display: none;">Scarica QR Code</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script src="js/QRCodeGenerator.js"></script>
+</body>
+</html>
