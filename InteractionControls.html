@@ -48,6 +48,20 @@
             width: 100%;
             box-sizing: border-box;
         }
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -56,7 +70,8 @@
         <h1>Esercizio Dropdown</h1>
 
         <div class="output">
-            <input type="text" id="monthOutput" placeholder="Il mese scelto apparirà qui" readonly>
+            <input type="text" id="monthOutput" placeholder="Inserisci un URL (es. google.com)">
+            <button id="openUrlBtn">Apri URL in Nuova Finestra</button>
         </div>
 
         <p style="margin-top: 20px;">Seleziona una data completa:</p>
@@ -64,6 +79,33 @@
     </div>
 
     <script>
+        document.getElementById('openUrlBtn').addEventListener('click', function() {
+            var url = document.getElementById('monthOutput').value.trim();
+            if (url) {
+                // Aggiunge https:// se l'utente non lo ha inserito, per evitare che il browser lo tratti come percorso locale
+                if (!/^https?:\/\//i.test(url)) {
+                    url = 'https://' + url;
+                }
+                window.open(url, '_blank');
+            } else {
+                alert("Per favore, inserisci un URL nella casella di testo.");
+            }
+        });
+
+        document.getElementById('dateInput').addEventListener('change', function() {
+            const dateValue = this.value;
+            if (dateValue) {
+                const parts = dateValue.split('-');
+                const year = parts[0];
+                const monthIndex = parseInt(parts[1]) - 1;
+                const day = parts[2];
+
+                const months = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
+                const monthName = months[monthIndex];
+
+                document.getElementById('monthOutput').value = 'https://photos.google.com/search/' + day + '%20' + monthName + '%20' + year;
+            }
+        });
     </script>
 </body>
 </html>
