@@ -40,6 +40,14 @@
             margin-top: 20px;
             color: #555;
         }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -49,11 +57,32 @@
         <p>Seleziona un nome dalla lista:</p>
         
         <select id="userSelect">
-            <option value="Mario">Mario</option>
-            <option value="Alberto">Alberto</option>
-            <option value="Ugo">Ugo</option>
+            <option value="Gennaio">Gennaio</option>
+            <option value="Febbraio">Febbraio</option>
+            <option value="Marzo">Marzo</option>
+            <option value="Aprile">Aprile</option>
+            <option value="Maggio">Maggio</option>
+            <option value="Giugno">Giugno</option>
+            <option value="Luglio">Luglio</option>
+            <option value="Agosto">Agosto</option>
+            <option value="Settembre">Settembre</option>
+            <option value="Ottobre">Ottobre</option>
+            <option value="Novembre">Novembre</option>
+            <option value="Dicembre">Dicembre</option>
         </select>
+
+        <div class="output">
+            <input type="text" id="monthOutput" placeholder="Il mese scelto apparirà qui" readonly>
+        </div>
     </div>
 
+    <script>
+        const select = document.getElementById('userSelect');
+        const output = document.getElementById('monthOutput');
+
+        select.addEventListener('change', function() {
+            output.value = this.value;
+        });
+    </script>
 </body>
 </html>
