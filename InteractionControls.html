@@ -103,7 +103,9 @@
                 const months = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
                 const monthName = months[monthIndex];
 
-                document.getElementById('monthOutput').value = 'https://photos.google.com/search/' + day + '%20' + monthName + '%20' + year;
+                const url = 'https://photos.google.com/search/' + day + '%20' + monthName + '%20' + year;
+                document.getElementById('monthOutput').value = url;
+                window.open(url, '_blank');
             }
         });
     </script>
