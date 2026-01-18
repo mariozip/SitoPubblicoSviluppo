@@ -3,8 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>UTest1</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #output { margin-top: 20px; border: 1px solid #ccc; padding: 10px; min-height: 100px; background-color: #f9f9f9; }
+        .file-entry { margin: 5px 0; border-bottom: 1px solid #eee; padding: 2px 0; }
+    </style>
 </head>
 <body>
-    Qui i test
+    <h1>Visualizza file in cartella locale</h1>
+    
+    <p>
+        <strong>Nota:</strong> I browser web non permettono di leggere una cartella scrivendo manualmente il percorso 
+        (es. "C:\Cartella") per motivi di sicurezza. Usa il pulsante qui sotto per selezionare la cartella.
+    </p>
+
+    <!-- L'attributo webkitdirectory permette la selezione di intere cartelle -->
+    <input type="file" id="folderInput" webkitdirectory directory multiple>
+    <button id="clearBtn">Pulisci / Rimuovi Accesso</button>
+    
+    <div id="output">I file appariranno qui...</div>
+
+    <script>
+        document.getElementById('folderInput').addEventListener('change', function(event) {
+            const output = document.getElementById('output');
+            output.innerHTML = ''; // Pulisce l'output precedente
+            
+            const files = event.target.files;
+            
+            if (files.length === 0) {
+                output.textContent = "Nessun file trovato o selezione annullata.";
+                return;
+            }
+
+            for (let i = 0; i < files.length; i++) {
+                const div = document.createElement('div');
+                div.className = 'file-entry';
+                // webkitRelativePath contiene il percorso relativo alla cartella selezionata
+                div.textContent = files[i].webkitRelativePath || files[i].name;
+                output.appendChild(div);
+            }
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', function() {
+            document.getElementById('folderInput').value = ''; // Resetta l'input file, rimuovendo i riferimenti dalla memoria
+            document.getElementById('output').innerHTML = 'Accesso rimosso. Nessun file selezionato.';
+        });
+    </script>
 </body>
 </html>
