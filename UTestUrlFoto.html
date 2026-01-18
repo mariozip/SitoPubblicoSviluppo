@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controlli Interazione</title>
+    <title>Utility per navigare e per puntare data Foto</title>
     <link rel="icon" type="image/png" href="img/favicon.png">
     <style>
         body {
@@ -40,7 +40,7 @@
             margin-top: 20px;
             color: #555;
         }
-        input[type="text"], input[type="date"] {
+        input[type="text"], input[type="date"], input[type="number"] {
             padding: 10px;
             font-size: 16px;
             border-radius: 4px;
@@ -62,6 +62,10 @@
         button:hover {
             background-color: #0056b3;
         }
+        .manual-inputs {
+            display: flex;
+            gap: 10px;
+        }
     </style>
 </head>
 <body>
@@ -76,6 +80,14 @@
 
         <p style="margin-top: 20px;">Seleziona una data completa:</p>
         <input type="date" id="dateInput">
+
+        <p style="margin-top: 20px;">Oppure inserisci manualmente:</p>
+        <div class="manual-inputs">
+            <input type="number" id="manualDay" placeholder="GG" min="1" max="31">
+            <input type="number" id="manualMonth" placeholder="MM" min="1" max="12">
+            <input type="number" id="manualYear" placeholder="AAAA" min="1900">
+        </div>
+        <button id="manualDateBtn">Cerca data manuale</button>
     </div>
 
     <script>
@@ -106,6 +118,28 @@
                 const url = 'https://photos.google.com/search/' + day + '%20' + monthName + '%20' + year;
                 document.getElementById('monthOutput').value = url;
                 window.open(url, '_blank');
+            }
+        });
+
+        document.getElementById('manualDateBtn').addEventListener('click', function() {
+            const day = document.getElementById('manualDay').value;
+            const month = document.getElementById('manualMonth').value;
+            const year = document.getElementById('manualYear').value;
+
+            if (day && month && year) {
+                const months = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
+                const monthIndex = parseInt(month) - 1;
+
+                if (monthIndex >= 0 && monthIndex < 12) {
+                    const monthName = months[monthIndex];
+                    const url = 'https://photos.google.com/search/' + day + '%20' + monthName + '%20' + year;
+                    document.getElementById('monthOutput').value = url;
+                    window.open(url, '_blank');
+                } else {
+                    alert("Mese non valido. Inserisci un numero tra 1 e 12.");
+                }
+            } else {
+                alert("Per favore, compila tutti i campi (Giorno, Mese, Anno).");
             }
         });
     </script>
