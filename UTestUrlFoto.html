@@ -91,6 +91,9 @@
     </div>
 
     <script>
+        // Imposta l'anno corrente come default nel campo manuale
+        document.getElementById('manualYear').value = new Date().getFullYear();
+
         document.getElementById('openUrlBtn').addEventListener('click', function() {
             var url = document.getElementById('monthOutput').value.trim();
             if (url) {
