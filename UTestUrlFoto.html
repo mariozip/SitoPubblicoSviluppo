@@ -87,7 +87,11 @@
             <input type="number" id="manualMonth" placeholder="MM" min="1" max="12">
             <input type="number" id="manualYear" placeholder="AAAA" min="1900">
         </div>
-        <button id="manualDateBtn">Cerca data manuale</button>
+        <div style="display: flex; gap: 10px;">
+            <button id="manualDateBtn">Cerca data manuale</button>
+            <button id="manualMonthBtn">Cerca Mese</button>
+            <button id="manualYearBtn">Cerca Anno</button>
+        </div>
     </div>
 
     <script>
@@ -146,6 +150,39 @@
                 }
             } else {
                 alert("Per favore, compila tutti i campi (Giorno, Mese, Anno).");
+            }
+        });
+
+        document.getElementById('manualMonthBtn').addEventListener('click', function() {
+            const month = document.getElementById('manualMonth').value;
+            const year = document.getElementById('manualYear').value;
+
+            if (month && year) {
+                const months = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
+                const monthIndex = parseInt(month) - 1;
+
+                if (monthIndex >= 0 && monthIndex < 12) {
+                    const monthName = months[monthIndex];
+                    const url = 'https://photos.google.com/search/' + monthName + '%20' + year;
+                    document.getElementById('monthOutput').value = url;
+                    window.open(url, '_blank');
+                } else {
+                    alert("Mese non valido. Inserisci un numero tra 1 e 12.");
+                }
+            } else {
+                alert("Per favore, compila Mese e Anno.");
+            }
+        });
+
+        document.getElementById('manualYearBtn').addEventListener('click', function() {
+            const year = document.getElementById('manualYear').value;
+
+            if (year) {
+                const url = 'https://photos.google.com/search/' + year;
+                document.getElementById('monthOutput').value = url;
+                window.open(url, '_blank');
+            } else {
+                alert("Per favore, inserisci un Anno.");
             }
         });
     </script>
