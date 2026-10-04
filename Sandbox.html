@@ -1,0 +1,48 @@
+<!-- Dichiara al browser che stiamo utilizzando la versione moderna di HTML (HTML5) -->
+<!DOCTYPE html>
+
+<!-- L'elemento radice della pagina. L'attributo lang="it" indica che il contenuto è in italiano -->
+<html lang="it">
+
+<!-- La sezione <head> contiene le informazioni tecniche per il browser, non visibili direttamente nella pagina -->
+<head>
+    <!-- Imposta la codifica dei caratteri su UTF-8 per supportare accenti e caratteri speciali -->
+    <meta charset="UTF-8">
+    
+    <!-- Assicura che la pagina sia "responsive", ovvero che si adatti automaticamente alla larghezza degli schermi (PC, tablet, smartphone) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Il titolo che apparirà nella scheda del browser -->
+    <title>La mia Sandbox di Sviluppo</title>
+    
+    <!-- Collega questo file HTML al nostro foglio di stile CSS esterno -->
+    <link rel="stylesheet" href="sandbox.css">
+</head>
+
+<!-- La sezione <body> contiene tutto ciò che sarà visibile all'utente sulla pagina web -->
+<body>
+
+    <!-- Un contenitore generico (div) a cui diamo una classe "container" per poterlo stilizzare tramite CSS -->
+    <div class="container">
+        
+        <!-- Un'intestazione principale (titolo di livello 1) -->
+        <h1>Benvenuto nella Sandbox</h1>
+        
+        <!-- Un paragrafo di testo standard -->
+        <p>Usa questa pagina per testare tranquillamente il tuo codice HTML, CSS e JavaScript.</p>
+        
+        <!-- Un pulsante interattivo. L'attributo "id" ci serve per "catturare" questo specifico elemento tramite JavaScript -->
+        <button id="pulsante-test">Cliccami per un test JS</button>
+        
+        <!-- Un paragrafo vuoto con un id. Lo useremo tramite JavaScript per scriverci un messaggio dopo il click -->
+        <p id="messaggio-output"></p>
+        
+    </div>
+
+    <!-- Collega il nostro file JavaScript. 
+         Lo inseriamo in fondo al <body> così il browser carica prima tutta la grafica (HTML/CSS) 
+         e solo alla fine carica la logica interattiva, migliorando le prestazioni -->
+    <script src="sandbox.js"></script>
+
+</body>
+</html>

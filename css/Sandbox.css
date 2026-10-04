@@ -1,0 +1,86 @@
+/* Il selettore universale (*) applica queste regole a TUTTI gli elementi della pagina */
+* {
+    /* Rimuove i margini predefiniti del browser per avere un controllo totale */
+    margin: 0;
+    
+    /* Rimuove le spaziature interne predefinite */
+    padding: 0;
+    
+    /* Fa in modo che i bordi e il padding siano calcolati all'interno della larghezza degli elementi, evitando sbavature nei layout */
+    box-sizing: border-box;
+}
+
+/* Stiliamo il corpo intero della pagina */
+body {
+    /* Impostiamo un carattere pulito e senza "grazie" (sans-serif) per una lettura agevole */
+    font-family: Arial, sans-serif;
+    
+    /* Un colore di sfondo grigio chiarissimo per far risaltare il contenitore bianco */
+    background-color: #f4f4f9;
+    
+    /* Centriamo il contenuto usando Flexbox, una tecnica moderna per la disposizione degli elementi */
+    display: flex;
+    justify-content: center; /* Centra orizzontalmente */
+    align-items: center;     /* Centra verticalmente */
+    
+    /* L'altezza minima del body occupa il 100% dell'altezza della finestra visibile (Viewport Height) */
+    min-height: 100vh;
+}
+
+/* Regole per il nostro contenitore principale */
+.container {
+    /* Sfondo bianco */
+    background-color: #ffffff;
+    
+    /* Spaziatura interna per non far appiccicare il testo ai bordi */
+    padding: 30px;
+    
+    /* Arrotonda gli angoli del riquadro */
+    border-radius: 8px;
+    
+    /* Aggiunge una leggera ombra per creare un effetto di profondità */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+    /* Allinea il testo al centro del contenitore */
+    text-align: center;
+}
+
+/* Spaziatura sotto il titolo per separarlo dal paragrafo */
+h1 {
+    margin-bottom: 15px;
+}
+
+/* Spaziatura sotto il paragrafo per separarlo dal pulsante */
+p {
+    margin-bottom: 20px;
+    color: #333333; /* Un grigio scuro, più morbido del nero puro */
+}
+
+/* Stile per il nostro pulsante */
+button {
+    /* Spaziatura interna: 10px in alto/basso, 20px a destra/sinistra */
+    padding: 10px 20px;
+    
+    /* Colore del testo (bianco) */
+    color: white;
+    
+    /* Colore di sfondo blu */
+    background-color: #007BFF;
+    
+    /* Rimuove il bordo predefinito */
+    border: none;
+    
+    /* Arrotonda leggermente i bordi del bottone */
+    border-radius: 5px;
+    
+    /* Cambia il cursore nella "manina" quando si passa sopra col mouse, per far capire che è cliccabile */
+    cursor: pointer;
+    
+    /* Ingrandisce leggermente il testo del pulsante */
+    font-size: 16px;
+}
+
+/* Cambia colore al bottone quando ci passiamo sopra col mouse (effetto hover) */
+button:hover {
+    background-color: #0056b3; /* Un blu leggermente più scuro */
+}
