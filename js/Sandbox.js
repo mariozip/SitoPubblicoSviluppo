@@ -1,25 +1,26 @@
-// Aggiungiamo un "ascoltatore di eventi" (Event Listener) all'intero documento.
-// 'DOMContentLoaded' significa che JavaScript aspetterà che l'HTML sia stato caricato del tutto
-// prima di eseguire questo blocco di codice. È una pratica molto sicura!
+// Aggiungiamo un "ascoltatore". Aspettiamo che il browser abbia letto tutto l'HTML 
+// prima di far partire il codice. È una pratica sicura per evitare errori.
 document.addEventListener('DOMContentLoaded', function() {
 
-    // Cerchiamo l'elemento HTML con id "pulsante-test" e lo salviamo in una variabile chiamata "bottone"
+    // 1. Troviamo il pulsante usando il suo ID e lo salviamo in una costante (una "scatola" di memoria)
     const bottone = document.getElementById('pulsante-test');
     
-    // Cerchiamo l'elemento HTML con id "messaggio-output" e lo salviamo nella variabile "output"
-    const output = document.getElementById('messaggio-output');
+    // 2. Troviamo il paragrafo vuoto (sempre tramite il suo ID) dove scriveremo il messaggio
+    const outputTesto = document.getElementById('messaggio-output');
 
-    // Ora diciamo al nostro bottone di mettersi in ascolto per l'evento "click"
+    // 3. Diciamo al bottone di restare in ascolto: aspetta che l'utente faccia 'click'
     bottone.addEventListener('click', function() {
         
-        // Quando avviene il click, modifichiamo il contenuto di testo (textContent) del paragrafo di output
-        output.textContent = "Ottimo lavoro! Il tuo JavaScript funziona perfettamente.";
+        // 4. Azioni da eseguire ESATTAMENTE nel momento del click:
         
-        // Cambiamo anche il colore del testo per dare un feedback visivo immediato (verde)
-        output.style.color = "green";
+        // Inseriamo la frase di risposta come testo all'interno del paragrafo vuoto
+        outputTesto.textContent = "Ciao Mario! Il server non si è mai fermato e il codice funziona!";
         
-        // Rendiamo il testo in grassetto
-        output.style.fontWeight = "bold";
+        // Modifichiamo lo stile (CSS) tramite JavaScript per colorare il testo di blu
+        outputTesto.style.color = "red";
+        
+        // Modifichiamo lo stile per rendere il testo in grassetto
+        outputTesto.style.fontWeight = "bold";
     });
 
 });
