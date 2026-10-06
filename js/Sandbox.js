@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         outputTesto.textContent = "Ciao Mario! Il server non si è mai fermato e il codice funziona!";
         
         // Modifichiamo lo stile (CSS) tramite JavaScript per colorare il testo di blu
-        outputTesto.style.color = "red";
+        outputTesto.style.color = "yellow";
         
         // Modifichiamo lo stile per rendere il testo in grassetto
         outputTesto.style.fontWeight = "bold";
