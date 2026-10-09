@@ -1,25 +1,33 @@
-// Aggiungiamo un "ascoltatore". Aspettiamo che il browser abbia letto tutto l'HTML 
-// prima di far partire il codice. È una pratica sicura per evitare errori.
+// Attende che l'intera struttura HTML della pagina sia stata caricata dal browser
 document.addEventListener('DOMContentLoaded', function() {
 
-    // 1. Troviamo il pulsante usando il suo ID e lo salviamo in una costante (una "scatola" di memoria)
+    // 1. Identifichiamo il pulsante tramite il suo ID univoco
     const bottone = document.getElementById('pulsante-test');
     
-    // 2. Troviamo il paragrafo vuoto (sempre tramite il suo ID) dove scriveremo il messaggio
+    // 2. Identifichiamo il paragrafo vuoto che farà da contenitore per il messaggio
     const outputTesto = document.getElementById('messaggio-output');
+    
+    // 3. Identifichiamo la casella di input in cui l'utente scrive
+    const inputNome = document.getElementById('campo-nome');
 
-    // 3. Diciamo al bottone di restare in ascolto: aspetta che l'utente faccia 'click'
+    // 4. Mettiamo il pulsante in ascolto dell'evento 'click'
     bottone.addEventListener('click', function() {
         
-        // 4. Azioni da eseguire ESATTAMENTE nel momento del click:
+        // Estraiamo il testo inserito dall'utente usando la proprietà .value
+        let nomeInserito = inputNome.value;
         
-        // Inseriamo la frase di risposta come testo all'interno del paragrafo vuoto
-        outputTesto.textContent = "Ciao Mario! Il server non si è mai fermato e il codice funziona!";
+        // Verifichiamo se l'utente ha scritto qualcosa (stringa non vuota)
+        if (nomeInserito.trim() !== "") {
+            // Se c'è un testo, componiamo il saluto personalizzato
+            outputTesto.textContent = "Ciao " + nomeInserito + ", benvenuto nella programmazione JS!";
+            outputTesto.style.color = "blue";
+        } else {
+            // Se la casella è vuota o contiene solo spazi, mostriamo un avviso di errore
+            outputTesto.textContent = "Per favore, inserisci un nome prima di cliccare!";
+            outputTesto.style.color = "red";
+        }
         
-        // Modifichiamo lo stile (CSS) tramite JavaScript per colorare il testo di blu
-        outputTesto.style.color = "yellow";
-        
-        // Modifichiamo lo stile per rendere il testo in grassetto
+        // Rendiamo il testo della risposta in grassetto
         outputTesto.style.fontWeight = "bold";
     });
 

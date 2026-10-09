@@ -24,19 +24,20 @@
 
     <!-- Un contenitore generico (div) a cui diamo una classe "container" per poterlo stilizzare tramite CSS -->
     <div class="container">
-        
-        <!-- Un'intestazione principale (titolo di livello 1) -->
+
+        <!-- Titolo e descrizione della pagina di test -->
         <h1>Benvenuto nella Sandbox</h1>
-        
-        <!-- Un paragrafo di testo standard -->
         <p>Usa questa pagina per testare tranquillamente il tuo codice HTML, CSS e JavaScript.</p>
         
-        <!-- Un pulsante interattivo. L'attributo "id" ci serve per "catturare" questo specifico elemento tramite JavaScript -->
-        <button id="pulsante-test">Cliccami per un test JS</button>
+        <!-- Casella di testo dove l'utente digita il nome -->
+        <input type="text" id="campo-nome" placeholder="Inserisci il tuo nome">
         
-        <!-- Un paragrafo vuoto con un id. Lo useremo tramite JavaScript per scriverci un messaggio dopo il click -->
+        <!-- L'UNICO pulsante attivo: usa l'id "pulsante-test" -->
+        <button id="pulsante-test">Invia Saluto</button>
+        
+        <!-- Paragrafo vuoto destinato a ricevere il testo della risposta -->
         <p id="messaggio-output"></p>
-        
+
     </div>
 
     <!-- Collega il nostro file JavaScript. 

@@ -84,3 +84,12 @@ button {
 button:hover {
     background-color: #0056b3; /* Un blu leggermente più scuro */
 }
+
+input {
+    padding: 10px;          /* Spazio interno per non far toccare il testo ai bordi */
+    margin-bottom: 15px;    /* Spazio sotto, per distanziarla dal pulsante */
+    margin-right: 10px;     /* Spazio a destra, nel caso gli elementi si affianchino */
+    border: 1px solid #ccc; /* Un bordino grigio chiaro */
+    border-radius: 5px;     /* Angoli arrotondati come il pulsante */
+    font-size: 16px;        /* Stessa grandezza del testo del pulsante */
+}
